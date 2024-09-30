@@ -9,6 +9,8 @@ import (
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/stretchr/testify/require"
 
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+
 	"cosmossdk.io/log"
 	sdkmath "cosmossdk.io/math"
 
@@ -107,7 +109,7 @@ func SetupWithGenesisValSet(t *testing.T, valSet *cmttypes.ValidatorSet, genAccs
 //
 // CONTRACT: BeginBlock must be called before this function.
 func SignAndDeliver(
-	tb testing.TB, txCfg client.TxConfig, app *bam.BaseApp, msgs []sdk.Msg,
+	tb testing.TB, txCfg client.TxConfig, app *bam.BaseApp, header cmtproto.Header, msgs []sdk.Msg,
 	chainID string, accNums, accSeqs []uint64, expPass bool, blockTime time.Time, nextValHash []byte, priv ...cryptotypes.PrivKey,
 ) (*abci.ResponseFinalizeBlock, error) {
 	tb.Helper()
@@ -132,5 +134,6 @@ func SignAndDeliver(
 		Time:               blockTime,
 		NextValidatorsHash: nextValHash,
 		Txs:                [][]byte{txBytes},
+		ProposerAddress:    header.ProposerAddress,
 	})
 }

@@ -132,9 +132,10 @@ func NewTestChainWithValSet(tb testing.TB, coord *Coordinator, chainID string, v
 
 	// create current header and call begin block
 	header := cmtproto.Header{
-		ChainID: chainID,
-		Height:  1,
-		Time:    coord.CurrentTime.UTC(),
+		ChainID:         chainID,
+		Height:          1,
+		Time:            coord.CurrentTime.UTC(),
+		ProposerAddress: valSet.Proposer.Address,
 	}
 
 	txConfig := app.GetTxConfig()
@@ -356,6 +357,7 @@ func (chain *TestChain) SendMsgs(msgs ...sdk.Msg) (*abci.ExecTxResult, error) {
 		chain.TB,
 		chain.TxConfig,
 		chain.App.GetBaseApp(),
+		chain.CurrentHeader,
 		msgs,
 		chain.ChainID,
 		[]uint64{chain.SenderAccount.GetAccountNumber()},
