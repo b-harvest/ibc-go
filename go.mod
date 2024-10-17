@@ -203,7 +203,7 @@ require (
 )
 
 replace (
-	cosmossdk.io/store => github.com/b-harvest/cosmos-sdk/store v0.0.0-20241015155842-364149db166b
-	github.com/cosmos/cosmos-sdk => github.com/b-harvest/cosmos-sdk v0.0.0-20241017100038-2b7fae21f59d
+	cosmossdk.io/store => github.com/b-harvest/cosmos-sdk/store v0.0.0-20241017105340-69898beab95b
+	github.com/cosmos/cosmos-sdk => github.com/b-harvest/cosmos-sdk v0.0.0-20241017111026-6789f2f769f9
 	github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 )
