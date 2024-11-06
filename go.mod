@@ -208,4 +208,9 @@ require (
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
+replace (
+	cosmossdk.io/store => github.com/b-harvest/cosmos-sdk/store v0.0.0-20241106072527-a25eb3a65854
+	github.com/cosmos/cosmos-sdk => github.com/b-harvest/cosmos-sdk v0.0.0-20241106082343-55e55e63db3a
+)
+
 replace github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7

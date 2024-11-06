@@ -177,6 +177,7 @@ type SimApp struct {
 	// keys to access the substores
 	keys    map[string]*storetypes.KVStoreKey
 	tkeys   map[string]*storetypes.TransientStoreKey
+	okeys   map[string]*storetypes.ObjectStoreKey
 	memKeys map[string]*storetypes.MemoryStoreKey
 
 	// keepers
@@ -311,6 +312,7 @@ func NewSimApp(
 	}
 
 	tkeys := storetypes.NewTransientStoreKeys(paramstypes.TStoreKey)
+	oKeys := storetypes.NewObjectStoreKeys(banktypes.ObjectStoreKey)
 	memKeys := storetypes.NewMemoryStoreKeys(capabilitytypes.MemStoreKey, ibcmock.MemStoreKey)
 
 	app := &SimApp{
@@ -358,6 +360,7 @@ func NewSimApp(
 	app.BankKeeper = bankkeeper.NewBaseKeeper(
 		appCodec,
 		runtime.NewKVStoreService(keys[banktypes.StoreKey]),
+		oKeys[banktypes.ObjectStoreKey],
 		app.AccountKeeper,
 		BlockedAddresses(),
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
@@ -666,6 +669,7 @@ func NewSimApp(
 		ibcfeetypes.ModuleName,
 		ibcmock.ModuleName,
 		group.ModuleName,
+		banktypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -725,6 +729,7 @@ func NewSimApp(
 	// initialize stores
 	app.MountKVStores(keys)
 	app.MountTransientStores(tkeys)
+	app.MountObjectStores(oKeys)
 	app.MountMemoryStores(memKeys)
 
 	// initialize BaseApp
