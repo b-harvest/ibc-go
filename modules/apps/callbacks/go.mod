@@ -208,3 +208,8 @@ require (
 	pgregory.net/rapid v1.1.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
+
+replace (
+	cosmossdk.io/store => github.com/b-harvest/cosmos-sdk/store v0.0.0-20241106072527-a25eb3a65854
+	github.com/cosmos/cosmos-sdk => github.com/b-harvest/cosmos-sdk v0.0.0-20241106082343-55e55e63db3a
+)
