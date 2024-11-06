@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	testifysuite "github.com/stretchr/testify/suite"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -128,7 +129,7 @@ func (suite *MigrationsV7TestSuite) assertSolomachineClients(solomachines []*ibc
 	for _, sm := range solomachines {
 		clientState, ok := suite.chainA.App.GetIBCKeeper().ClientKeeper.GetClientState(suite.chainA.GetContext(), sm.ClientID)
 		suite.Require().True(ok)
-		suite.Require().Equal(sm.ClientState(), clientState)
+		suite.Require().Empty(cmp.Diff(sm.ClientState(), clientState))
 
 		for i := uint64(0); i < numCreations; i++ {
 			height := types.NewHeight(1, i)
