@@ -296,6 +296,7 @@ func (chain *TestChain) NextBlock() {
 		Height:             chain.CurrentHeader.Height,
 		Time:               chain.CurrentHeader.GetTime(),
 		NextValidatorsHash: chain.NextVals.Hash(),
+		ProposerAddress:    chain.CurrentHeader.ProposerAddress,
 	})
 	require.NoError(chain.TB, err)
 	chain.commitBlock(res)
